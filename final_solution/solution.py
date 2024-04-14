@@ -1,5 +1,5 @@
 import typing as tp
-from .find_companies import process_text, synon_dict, extract_company_context
+from .find_companies import process_text, SYNON_DICT, extract_company_context
 from .model import predict
 
 EntityScoreType = tp.Tuple[int, float]  # (entity_id, entity_score)
@@ -27,7 +27,7 @@ def score_texts(
     answer = []
     for i, message in enumerate(messages):
         answer.append([])
-        tokens, mentioned_companies = process_text(message, synon_dict)
+        tokens, mentioned_companies = process_text(message, SYNON_DICT)
         company_context = extract_company_context(tokens, mentioned_companies, window_size=4)
         for company, token_window in company_context.items():
             answer[i].append((company, predict(token_window)))
