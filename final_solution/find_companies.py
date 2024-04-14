@@ -17,7 +17,7 @@ def process_text(text, synon_dict):
     tokens = word_tokenize(text, language='russian')
     tokens = [token.lower() for token in tokens]
 
-    stem_tokens = [stemmer.stem(token) for token in tokens]
+    stem_tokens = [stemmer.stem(token) for token in tokens if len(token) > 1]
 
     # Находим компании и заменяем на маркеры
     return replace_phrases_with_markers(stem_tokens, tokens, maximize_phrase_coverage(stem_tokens, synon_dict, 5), markers)
@@ -115,7 +115,7 @@ def replace_phrases_with_markers(stem_tokens, tokens, groups, markers):
             # Добавляем все токены до начала текущей группы
             new_tokens.extend(stem_tokens[last_index:group[0]])
             # Добавляем маркер в новый список
-            new_tokens.append(markers[marker_index])
+            # new_tokens.append(markers[marker_index])
             # Записываем позицию маркера
             if marker_index not in marker_positions:
                 marker_positions[marker_index] = []

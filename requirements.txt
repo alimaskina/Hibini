@@ -3,5 +3,5 @@ pandas==2.0.3
 pytest==7.4.4
 torch==2.2.1
 transformers==4.38.2
-
+catboost~=1.2.3
 nltk~=3.8.1
